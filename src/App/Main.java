@@ -4,75 +4,73 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-//        String zdanie = "Litwo ojczyzno moja ty jestes jak zdrowie";
-//        Map <Character, Integer> czestotliwosc = Zliczanie.zliczanie(zdanie);
-//        System.out.println(czestotliwosc);
-//
-//        PriorityQueue<Integer> kolejka = new PriorityQueue<>();
-//
-//        List <Integer> lista = Arrays.asList(1,1,2,4);
-//        kolejka.addAll(lista);
-//
-//        while (kolejka.size() > 1){
-//
-//            int a = kolejka.poll();
-//            int b = kolejka.poll();
-//            int suma = a + b;
-//            System.out.println("a: " + a + ", b: " + b + ", suma: " +suma);
-//
-//            //..............
-//            kolejka.add(suma);
-//        }
-        PriorityQueue<Integer> kolejka2 = new PriorityQueue<>();
-        Map<Character, Integer> lista2 = new HashMap<>();
-        lista2.put('c', 5);
-        lista2.put('a', 2);
-        lista2.put('d', 3);
-        lista2.put('r', 1);
-        lista2.put('g', 1);
-        lista2.put('y', 1);
+     String tekst = "Zdanie moze byc ze spacjami";
+     Map<Character, Integer> mapa = Zliczanie.zliczanie(tekst);
 
-        for (Character x : lista2.keySet()) {
-            kolejka2.add(lista2.get(x));
+     System.out.println(mapa);
+     Huffman huffman = new Huffman();
+     Node korzen = huffman.budowanieDrzewa(mapa);
+     System.out.println(korzen);
+     
+     Map <Character, String> mapa2 = new HashMap<>();
+     huffman.tworzenieSlownika(korzen, mapa2, "");
+     System.out.println(mapa2);
+     
+     
+     
+     
+//     System.out.println(fib(7));
+//     liczenie(3);
+//     System.out.println(silnia(5));
+//     odwracanie(tekst);
+//     System.out.println("---------------");
+//     wypisywanieDrzewa(3, "korzen", " ");
+
+
+    }
+    
+    static int fib (int n) {
+        if (n == 0) {
+            return 0;
         }
-        System.out.println(kolejka2);
-        while (kolejka2.size() > 1) {
-            int a = kolejka2.poll();
-            int b = kolejka2.poll();
-            int suma = a + b;
-            System.out.println("a:" + a + "b:" + b + "suma:" + suma);
-            kolejka2.add(suma);
+        if (n == 1) {
+            return 1;
         }
-        System.out.println("korzen =" + kolejka2.peek());
+        return fib(n - 1) + fib(n - 2);
+    }
 
-
-
-        Map<Character, Integer> mapa3 = new HashMap<>();
-        mapa3.put('c', 5);
-        mapa3.put('b', 6);
-        mapa3.put('s', 2);
-        mapa3.put('p', 2);
-        mapa3.put(' ', 6);
-
-        PriorityQueue<SmallNode> kolejkaNode = new PriorityQueue<>();
-        for(Character x : mapa3.keySet()){
-            kolejkaNode.add(new SmallNode(x, mapa3.get(x)));
+    static int silnia(int n){
+        if (n==1){
+            return 1;
         }
+        return (n*silnia(n-1));
+    }
 
-
-
-   }
-    static class SmallNode implements Comparable<SmallNode>{
-        public Character znak;
-        public int czestotliwosc;
-
-        public SmallNode(Character znak, Integer czestotliwosc){
-            this.czestotliwosc = czestotliwosc;
-            this.znak = znak;
+    static void odwracanie(String tekst){
+        if (tekst.length() == 0){
+            return;
         }
-        @Override
-        public int compareTo(SmallNode sm){
-            return Integer.compare(this.czestotliwosc, sm.czestotliwosc);
+        odwracanie(tekst.substring(1));
+        System.out.print(tekst.charAt(0));
+    }
+
+    static void wypisywanieDrzewa(int n, String kierunek, String wciecie){
+        if (n == 0){
+            return;
         }
+        System.out.println( wciecie +"|---"+  "(" + n+kierunek+ ")");
+        wypisywanieDrzewa(n-1, "L",wciecie + "     ");
+        wypisywanieDrzewa(n-1, "P", wciecie + "     ");
+
+    }
+
+
+    static void liczenie(int n){
+        if (n == 0){
+            return;
+        }
+        System.out.println(n);
+        liczenie(n-1);
+        System.out.println(n);
     }
 }
